@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+input[type="checkbox"]:checked {
+  background-color: transparent;
+  border-color: var(--input-color);
+}
+
+input[type="checkbox"]:checked:after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin: 2px;
+  background: var(--input-color);
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-70%, -70%);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
