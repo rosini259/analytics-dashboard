@@ -1,16 +1,18 @@
-import { addSchool, removeSchool } from "@/app/features/globalSlice";
+import { addSchool, removeSchool, objColorR } from "@/app/features/globalSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { useEffect } from "react";
+
 declare module "react" {
   interface CSSProperties {
     "--input-color"?: string;
   }
 }
-const SideBar = ({
-  schoolNcolor,
-}: {
-  schoolNcolor: { [key: string]: string };
-}) => {
+
+const SideBar = () => {
   const dispatch = useAppDispatch();
+  const objColor = useAppSelector(
+    (state): objColorTypes => state.objColor.value
+  );
   const selectedValues = useAppSelector((state) => state.selectedValues.value);
   const schoolOptions = useAppSelector((state) => state.schoolOptions.value);
   const selectedSchool = useAppSelector((state) => state.selectedSchool.value);
@@ -62,6 +64,20 @@ const SideBar = ({
     "rgb(255,159,64)", // orange
   ];
 
+  useEffect(() => {
+    const newColorMap = { ...objColor };
+
+    schoolOptions.forEach((school, i) => {
+      if (!newColorMap[school]) {
+        newColorMap[school] = colors[i]; 
+      }
+    });
+
+    if (JSON.stringify(newColorMap) !== JSON.stringify(objColor)) {
+      dispatch(objColorR(newColorMap));
+    }
+  }, [schoolOptions, objColor, dispatch]);
+
   return (
     <div className="w-[25%]">
       <div className="heading mb-10">
@@ -76,7 +92,6 @@ const SideBar = ({
             const totalLessonsSchool = schoolNCamp
               .filter((ele) => ele.school === school)
               .reduce((total, ele) => total + ele.lessons, 0);
-            schoolNcolor[school] = colors[i];
             return (
               <div className="checkbox flex justify-around mt-3" key={i}>
                 <input
@@ -107,7 +122,6 @@ const SideBar = ({
             );
           })
         ) : (
-          // it will not take their colors before render the show all element
           <div className="checkbox flex justify-around mt-3">
             <input
               type="checkbox"
@@ -118,7 +132,7 @@ const SideBar = ({
               className="appearance-none h-6 w-6 border-2 border-gray-600 rounded-full focus:outline-none"
               style={{
                 "--input-color": checkedSchools.includes(selectedSchool)
-                  ? schoolNcolor[selectedSchool]
+                  ? objColor[selectedSchool]
                   : "transparent",
               }}
             />
@@ -126,17 +140,17 @@ const SideBar = ({
               <div className="heading">
                 <h1
                   className="text-xl"
-                  style={{ color: schoolNcolor[selectedSchool] }}
+                  style={{ color: objColor[selectedSchool] }}
                 >
                   <span
                     className="text-3xl"
-                    style={{ color: schoolNcolor[selectedSchool] }}
+                    style={{ color: objColor[selectedSchool] }}
                   >
                     {totalLessonsSchool}
                   </span>{" "}
                   lessons
                 </h1>
-                <p style={{ color: schoolNcolor[selectedSchool] }}>
+                <p style={{ color: objColor[selectedSchool] }}>
                   in {`${selectedSchool}`}
                 </p>
               </div>

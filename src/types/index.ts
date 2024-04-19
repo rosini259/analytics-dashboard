@@ -6,3 +6,6 @@ interface dataTypes {
   month: string;
   school: string;
 }
+interface objColorTypes {
+  [key: string]: string;
+}

@@ -93,6 +93,17 @@ export const routedDataSlice = createSlice({
     },
   },
 });
+export const objColorSlice = createSlice({
+  name: "objColor",
+  initialState: {
+    value: {} 
+  },
+  reducers: {
+    objColorR: (state, action) => {
+      state.value = action.payload
+    },
+  },
+});
 
 
 // Action creators are generated for each case reducer function
@@ -104,3 +115,4 @@ export const { selectedCampR } = selectedCampSlice.actions;
 export const { selectedCountryR } = selectedCountrySlice.actions;
 export const { addSchool,removeSchool } = checkedSchoolSlice.actions;
 export const { routedDataR } = routedDataSlice.actions;
+export const { objColorR } = objColorSlice.actions;

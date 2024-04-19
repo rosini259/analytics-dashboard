@@ -6,11 +6,10 @@ import { ActiveElement, ChartEvent } from "chart.js/auto";
 import { routedDataR } from "@/app/features/globalSlice";
 import { useRouter } from "next/navigation";
 
-const Chart = ({
-  schoolNcolor,
-}: {
-  schoolNcolor: { [key: string]: string };
-}) => {
+const Chart = () => {
+  const objColor = useAppSelector(
+    (state): objColorTypes => state.objColor.value
+  );
   const router = useRouter();
   const dispatch = useAppDispatch();
   const dataF = useAppSelector((state) => state.data.value);
@@ -63,8 +62,8 @@ const Chart = ({
         label: schoolData[0].school,
         data: Object.values(obj),
         fill: false,
-        backgroundColor: schoolNcolor[schoolData[0].school],
-        borderColor: schoolNcolor[schoolData[0].school],
+        backgroundColor: objColor[schoolData[0].school],
+        borderColor: objColor[schoolData[0].school],
       };
     });
   const months = [

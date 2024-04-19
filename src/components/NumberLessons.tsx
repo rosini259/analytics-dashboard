@@ -21,24 +21,24 @@ const NumberLessons = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state): dataTypes[] => state.data.value);
   useEffect(() => {
-    dispatch(
-      selectedValues(
-        Array.from(
-          new Set(
-            data.filter((ele) => {
-              if (ele.country === selectedCountry) {
-                if (ele.camp === selectedCamp) {
-                  if (ele.school === selectedSchool) {
-                    return ele;
-                  }
-                }
-              }
-            })
+    if (selectedCountry && selectedCamp && selectedSchool) {
+      dispatch(
+        selectedValues(
+          Array.from(
+            new Set(
+              data.filter((ele) => {
+                return (
+                  ele.country === selectedCountry &&
+                  ele.camp === selectedCamp &&
+                  ele.school === selectedSchool
+                );
+              })
+            )
           )
         )
-      )
-    );
-  }, [data, dispatch, selectedCamp, selectedCountry, selectedSchool]);
+      );
+    }
+  }, [data, selectedCountry, selectedCamp, selectedSchool]);
 
   useEffect(() => {
     fetchData().then((res) => dispatch(fdata(res)));

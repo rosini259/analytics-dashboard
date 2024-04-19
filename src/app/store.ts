@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { checkedSchoolSlice, dataSlice, routedDataSlice, schoolOptionsSlice, selectedCampSlice, selectedCountrySlice, selectedSchoolSlice, selectedValuesSlice } from "./features/globalSlice";
+import { checkedSchoolSlice, dataSlice, objColorSlice, routedDataSlice, schoolOptionsSlice, selectedCampSlice, selectedCountrySlice, selectedSchoolSlice, selectedValuesSlice } from "./features/globalSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,7 +10,8 @@ export const store = configureStore({
     selectedCamp: selectedCampSlice.reducer,
     selectedCountry: selectedCountrySlice.reducer,
     checkedSchool: checkedSchoolSlice.reducer,
-    routedData: routedDataSlice.reducer
+    routedData: routedDataSlice.reducer,
+    objColor:objColorSlice.reducer
   },
 });
 
