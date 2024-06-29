@@ -21,8 +21,8 @@ const NumberLessons = () => {
         Number of lessons
       </h1>
       <div className="select-container flex justify-around mt-10 max-sm:flex max-sm:flex-col">
-        <div className="select">
-          <label htmlFor="1" className="mr-3">
+        <div className="select max-sm:flex max-sm:justify-between max-sm:mb-1">
+          <label htmlFor="1" className="mr-3 max-sm:flex max-sm:items-center">
             select country
           </label>
           <select
@@ -40,8 +40,8 @@ const NumberLessons = () => {
             ))}
           </select>
         </div>
-        <div className="select">
-          <label htmlFor="2" className="mr-3">
+        <div className="select max-sm:flex max-sm:justify-between max-sm:mb-1">
+          <label htmlFor="2" className="mr-3 max-sm:flex max-sm:items-center">
             select camp
           </label>
           <select
@@ -59,8 +59,8 @@ const NumberLessons = () => {
             ))}
           </select>
         </div>
-        <div className="select">
-          <label htmlFor="3" className="mr-3">
+        <div className="select max-sm:flex max-sm:justify-between max-sm:mb-1">
+          <label htmlFor="3" className="mr-3 max-sm:flex max-sm:items-center">
             select school
           </label>
           <select
