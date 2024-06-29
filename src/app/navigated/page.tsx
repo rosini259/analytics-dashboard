@@ -1,15 +1,16 @@
 "use client";
-import { useAppSelector } from "../hooks";
+
+import { useAppSelector } from "@/store/hooks";
 
 const Page = () => {
   const routedData = useAppSelector((state) => state.routedData.value);
   return (
     <div>
-      <div className="">{`country: ${routedData.country}`}</div>
-      <div className="">{`camp: ${routedData.camp}`}</div>
-      <div className="">{`school: ${routedData.school}`} </div>
-      <div className="">{`month: ${routedData.month}`}</div>
-      <div className="">{`lessons: ${routedData.lessons}`} </div>
+      <div>{`country: ${routedData.country}`}</div>
+      <div>{`camp: ${routedData.camp}`}</div>
+      <div>{`school: ${routedData.school}`} </div>
+      <div>{`month: ${routedData.month}`}</div>
+      <div>{`lessons: ${routedData.lessons}`} </div>
     </div>
   );
 };

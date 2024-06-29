@@ -1,83 +1,20 @@
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { fetchData } from "@/utils";
-import { useEffect, useState } from "react";
-import {
-  fdata,
-  schoolOptionsR,
-  selectedCampR,
-  selectedCountryR,
-  selectedSchoolR,
-  selectedValues,
-} from "@/app/features/globalSlice";
+import { selectedCountryR } from "@/store/selectedCountrySlice";
+import { selectedCampR } from "@/store/selectedCampSlice";
+import { selectedSchoolR } from "@/store/selectedSchoolSlice";
+import useNumberLessons from "@/hooks/useNumberLessons";
+import { useAppDispatch } from "@/store/hooks";
+
 const NumberLessons = () => {
-  const selectedCountry = useAppSelector(
-    (state) => state.selectedCountry.value
-  );
-  const selectedCamp = useAppSelector((state) => state.selectedCamp.value);
-  const selectedSchool = useAppSelector((state) => state.selectedSchool.value);
-  const [countryOptions, setCountryOptions] = useState<string[]>([]);
-  const [campOptions, setCampOptions] = useState<string[]>([]);
-  const schoolOptions = useAppSelector((state) => state.schoolOptions.value);
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state): dataTypes[] => state.data.value);
-  useEffect(() => {
-    if (selectedCountry && selectedCamp && selectedSchool) {
-      dispatch(
-        selectedValues(
-          Array.from(
-            new Set(
-              data.filter((ele) => {
-                return (
-                  ele.country === selectedCountry &&
-                  ele.camp === selectedCamp &&
-                  ele.school === selectedSchool
-                );
-              })
-            )
-          )
-        )
-      );
-    }
-  }, [data, selectedCountry, selectedCamp, selectedSchool]);
-
-  useEffect(() => {
-    fetchData().then((res) => dispatch(fdata(res)));
-  }, [dispatch]);
-
-  useEffect(() => {
-    const uniqueCountries = Array.from(new Set(data.map((ele) => ele.country)));
-    setCountryOptions(uniqueCountries);
-    // dispatch(selectedCountryR(uniqueCountries[0]));
-  }, [data, dispatch]);
-
-  useEffect(() => {
-    if (selectedCountry) {
-      const uniqueCamps = Array.from(
-        new Set(
-          data
-            .filter((ele) => ele.country === selectedCountry)
-            .map((ele) => ele.camp)
-        )
-      );
-      setCampOptions(uniqueCamps);
-      // dispatch(selectedCampR(uniqueCamps[0]));
-    }
-  }, [data, dispatch, selectedCountry]);
-
-  useEffect(() => {
-    if (selectedCamp) {
-      const uniqueSchools = Array.from(
-        new Set(
-          data
-            .filter((ele) => ele.camp === selectedCamp)
-            .map((ele) => ele.school)
-        )
-      );
-      dispatch(schoolOptionsR(uniqueSchools));
-      // dispatch(selectedSchoolR(uniqueSchools[0]));
-    }
-  }, [data, dispatch, selectedCamp]);
-
+  const {
+    schoolOptions,
+    campOptions,
+    countryOptions,
+    selectedCountry,
+    selectedCamp,
+    selectedSchool,
+  } = useNumberLessons();
+  // bug re-renders
   return (
     <div>
       <h1 className="text-xl text-purple-700 font-normal mt-14 max-sm:mt-2">
